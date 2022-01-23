@@ -1,0 +1,41 @@
+library(ggplot2)
+library(plyr)
+library(ggthemes)
+library(DataExplorer)
+library('modeest')
+
+datos <- read.csv("Data/TrainingWIDS2021.csv")
+
+head(datos)
+
+
+#Analisis exploratorio
+str(datos)
+summary(datos)
+
+#sacar las columnas q no son relevantas
+datos_2 <- datos[,4:ncol(datos)]
+
+str(datos_2)
+
+head(datos_2)
+
+ts.plot(datos_2$age)
+ts.plot(datos_2$glucose_apache)
+
+#usando Data Explorer
+
+plot_missing(datos_2)
+
+datos_sinnull = na.omit(datos_2)
+
+#histograma
+plot_missing(datos_sinnull)
+plot_histogram(datos_sinnull)
+
+
+mean(datos_sinnull$age)
+
+
+plot(x = datos_sinnull$age,y = datos_sinnull$glucose_apache,
+     type ='p' , main = "Grafico de la edad y glucosa")
